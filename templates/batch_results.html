@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cassava Leaf Disease Detection</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            color: #2d3748;
+            background-image: url("https://images.unsplash.com/photo-1592928302779-4d76ab144f0c?auto=format&fit=crop&w=1600&q=80");
+            background-size: cover;
+            background-position: center;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            min-height: 100vh;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+        h1, h2 { margin-bottom: 25px; }
+        form { margin-bottom: 30px; }
+        select, input[type="submit"] {
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
+        input[type="submit"] {
+            border: none;
+            background-color: #2b9348;
+            color: white;
+            cursor: pointer;
+        }
+        .result {
+            display: inline-block;
+            width: 200px;
+            margin: 15px;
+            background: #fff;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            vertical-align: top;
+        }
+        .result img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        .notice {
+            padding: 20px;
+            background: #ffe8e8;
+            color: #900;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cassava Leaf Disease Detection</h1>
+
+        {% if not folders %}
+            <div class="notice">
+                ⚠️ No test folders found!<br>
+                Please create sub‑folders under:<br>
+                <code>static/test_folders/</code> and add images.
+            </div>
+        {% else %}
+            <form method="POST">
+                <label for="folder">Choose a test folder:</label>
+                <select name="folder" id="folder" required>
+                    <option value="" disabled {% if not selected %}selected{% endif %}>-- Select folder --</option>
+                    {% for folder in folders %}
+                        <option value="{{ folder }}" {% if folder == selected %}selected{% endif %}>
+                            {{ folder }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Predict">
+            </form>
+        {% endif %}
+
+        {% if results %}
+            <h2>Results for “{{ selected }}”</h2>
+            {% for r in results %}
+                <div class="result">
+                    <img src="{{ r.image_path }}" alt="{{ r.filename }}">
+                    <div><strong>{{ r.filename }}</strong></div>
+                    <div>Prediction:<br><strong>{{ r.prediction }}</strong></div>
+                    <div>Confidence:<br>{{ r.confidence }}</div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+</html>
