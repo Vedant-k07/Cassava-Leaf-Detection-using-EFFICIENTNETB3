@@ -38,7 +38,13 @@ This project uses a deep learning model based on **EfficientNetB3** to classify 
 
 - Source: [Cassava Leaf Disease Kaggle Competition](https://www.kaggle.com/competitions/cassava-leaf-disease-classification)
 - Format: JPEG images + JSON labels
+- Download the Model File
+The trained model file (best_model.keras) is not included in this repository due to file size limits.
 
+Please download it from Dropbox:
+https://www.dropbox.com/scl/fi/6hyouzu048ar2muuacf5l/best_model.keras?rlkey=q39lhe6tc2rdfvue4r2vozf9c&st=b8ud7dch&dl=0
+
+After downloading, place the file in the root directory of this project before running the app.
 ---
 
 ## 🛠️ Project Structure
